@@ -60,7 +60,11 @@ int __fscrypt_prepare_link(struct inode *inode, struct inode *dir,
 		return err;
 
 	/* ... in case we looked up no-key name before key was added */
+<<<<<<< HEAD
 	if (dentry->d_flags & DCACHE_NOKEY_NAME)
+=======
+	if (fscrypt_is_nokey_name(dentry))
+>>>>>>> 1227ffc9d73d (fscrypt: add fscrypt_is_nokey_name())
 		return -ENOKEY;
 
 	if (!fscrypt_has_permitted_context(dir, inode))
@@ -85,7 +89,12 @@ int __fscrypt_prepare_rename(struct inode *old_dir, struct dentry *old_dentry,
 		return err;
 
 	/* ... in case we looked up no-key name(s) before key was added */
+<<<<<<< HEAD
 	if ((old_dentry->d_flags | new_dentry->d_flags) & DCACHE_NOKEY_NAME)
+=======
+	if (fscrypt_is_nokey_name(old_dentry) ||
+	    fscrypt_is_nokey_name(new_dentry))
+>>>>>>> 1227ffc9d73d (fscrypt: add fscrypt_is_nokey_name())
 		return -ENOKEY;
 
 	if (old_dir != new_dir) {
